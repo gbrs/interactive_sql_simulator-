@@ -157,6 +157,10 @@ WHERE price < ANY (
                    GROUP BY author
               );
 
+1.4.5
+SELECT title, author, amount, (SELECT MAX(amount) FROM book) - amount AS Заказ
+FROM book
+HAVING Заказ > 0;
 
 
 
