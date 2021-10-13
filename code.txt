@@ -191,4 +191,10 @@ ___________________________________________________________________
     WHERE name LIKE "%а %"
  ORDER BY date_last DESC;
 
+   SELECT DISTINCT name
+     FROM trip
+    WHERE city = 'Москва'
+ ORDER BY name;
+
+
 
