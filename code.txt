@@ -191,10 +191,17 @@ ___________________________________________________________________
     WHERE name LIKE "%а %"
  ORDER BY date_last DESC;
 
-   SELECT DISTINCT name
-     FROM trip
-    WHERE city = 'Москва'
- ORDER BY name;
+1.6.2
+  SELECT DISTINCT name
+    FROM trip
+   WHERE city = 'Москва'
+ORDER BY name;
+
+1.6.3
+  SELECT DISTINCT city, COUNT(city) AS Количество
+    FROM trip
+GROUP BY city
+ORDER BY city;
 
 
 
