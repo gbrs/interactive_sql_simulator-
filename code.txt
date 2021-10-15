@@ -200,7 +200,10 @@ UPDATE book
    SET price = 0.9 * price
  WHERE amount BETWEEN 5 AND 10;
 
-
+1.5.6
+UPDATE book
+   SET buy = IF (buy > amount, amount, buy),
+       price = IF (buy < 1, 0.9 * price, price);
 
 ___________________________________________________________________
 1.6.1
