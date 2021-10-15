@@ -195,7 +195,10 @@ SELECT title, author, price, amount
           FROM book
       );
 
-
+1.5.5
+UPDATE book
+   SET price = 0.9 * price
+ WHERE amount BETWEEN 5 AND 10;
 
 
 
