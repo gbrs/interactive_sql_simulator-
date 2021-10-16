@@ -205,6 +205,15 @@ UPDATE book
    SET buy = IF (buy > amount, amount, buy),
        price = IF (buy < 1, 0.9 * price, price);
 
+1.5.7
+UPDATE book, supply
+   SET book.amount = book.amount + supply.amount, book.price = (book.price + supply.price) / 2
+ WHERE book.title = supply.title AND book.author = supply.author;
+
+SELECT * FROM book;
+
+
+
 ___________________________________________________________________
 1.6.1
    SELECT name, city, per_diem, date_first, date_last
