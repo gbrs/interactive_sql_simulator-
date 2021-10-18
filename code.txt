@@ -219,8 +219,22 @@ DELETE FROM supply
                       HAVING SUM(amount) > 10
               );
 
+1.5.9
+CREATE TABLE ordering AS
+SELECT author,
+       title,
+       (
+       SELECT ROUND(AVG(amount))
+         FROM book
+       ) AS amount
+  FROM book
+ WHERE amount < (SELECT ROUND(AVG(amount))
+                  FROM book
+               );
 
+SELECT * FROM ordering;
 ___________________________________________________________________
+
 1.6.1
    SELECT name, city, per_diem, date_first, date_last
      FROM trip
