@@ -232,7 +232,6 @@ SELECT author,
                   FROM book
                );
 
-SELECT * FROM ordering;
 ___________________________________________________________________
 
 1.6.1
@@ -253,5 +252,15 @@ ORDER BY name;
 GROUP BY city
 ORDER BY city;
 
-
-
+1.6.4
+SELECT
+    city,
+    COUNT(city) AS Количество
+FROM
+    trip
+GROUP BY
+    city
+ORDER BY
+    Количество DESC
+LIMIT
+    2;
