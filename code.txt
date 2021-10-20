@@ -280,7 +280,23 @@ ORDER BY
   Длительность DESC,
   city DESC;
 
-
+1.6.6
+SELECT
+  name,
+  city,
+  date_first,
+  date_last
+FROM
+  trip
+WHERE
+  datediff(date_last, date_first) = (
+    SELECT
+      MIN(
+        datediff(date_last, date_first)
+      )
+    FROM
+      trip
+  );
 
 
 
