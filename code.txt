@@ -312,3 +312,14 @@ ORDER BY
   city,
   name;
 
+1.6.8
+SELECT
+  MONTHNAME(date_first) AS Месяц,
+  COUNT(date_first) AS Количество
+FROM
+  trip
+GROUP BY
+  Месяц
+ORDER BY
+  Количество DESC,
+  Месяц;
