@@ -323,3 +323,22 @@ GROUP BY
 ORDER BY
   Количество DESC,
   Месяц;
+
+1.6.9
+SELECT
+  name,
+  city,
+  date_first,
+  (
+    DATEDIFF(date_last, date_first) + 1
+  ) * per_diem AS Сумма
+FROM
+  trip
+WHERE
+  MONTHNAME(date_first) = "March"
+  OR MONTHNAME(date_first) = "February"
+ORDER BY
+  name,
+  Сумма DESC;
+
+
