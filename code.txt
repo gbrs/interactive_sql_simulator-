@@ -406,3 +406,34 @@ ORDER BY
   number_plate,
   violation;
 
+1.7.5
+UPDATE
+  fine,
+  // создаем промежуточную таблицу для нахождения повторных нарушений/нарушителей/машин
+  (
+    SELECT
+      name,
+      number_plate,
+      violation
+    FROM
+      fine
+    GROUP BY
+      name,
+      number_plate,
+      violation
+    HAVING
+      COUNT(*) > 1
+    ORDER BY
+      name,
+      number_plate,
+      violation
+  ) AS query_in
+SET
+  sum_fine = 2 * sum_fine
+// по промежуточной таблице ищем соответствующие записи с неоплатами
+WHERE
+  date_payment is null
+  AND query_in.name = fine.name
+  AND query_in.number_plate = fine.number_plate
+  AND query_in.violation = fine.violation;
+
