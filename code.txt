@@ -437,3 +437,20 @@ WHERE
   AND query_in.number_plate = fine.number_plate
   AND query_in.violation = fine.violation;
 
+1.7.6
+UPDATE
+    fine,
+    payment
+SET
+    sum_fine = IF(
+                    DATEDIFF(payment.date_payment, payment.date_violation) > 20,
+                    sum_fine,
+                    0.5 * sum_fine
+                ),
+    fine.date_payment = payment.date_payment
+WHERE
+    // "выравняются" строки, у которых есть 3 совпадения?
+    (fine.name, fine.violation, fine.date_violation)
+    = (payment.name, payment.violation, payment.date_violation);
+
+
