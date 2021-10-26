@@ -453,4 +453,8 @@ WHERE
     (fine.name, fine.violation, fine.date_violation)
     = (payment.name, payment.violation, payment.date_violation);
 
+1.7.7
+DELETE FROM fine
+WHERE date_violation < '2020-02-01';
 
+SELECT * FROM fine;
