@@ -458,3 +458,23 @@ DELETE FROM fine
 WHERE date_violation < '2020-02-01';
 
 SELECT * FROM fine;
+_______________________________________________
+_______________________________________________
+_______________________________________________
+
+2.1.1
+CREATE TABLE author(
+    author_id INT PRIMARY KEY AUTO_INCREMENT,
+    name_author VARCHAR(50)
+);
+
+2.1.2
+INSERT INTO author (title, author, price, amount)
+VALUES
+    ('Идиот', 'Достоевский Ф.М.', 460, 10),
+    ('Братья Карамазовы', 'Достоевский Ф.М.', 799.01, 2);
+
+
+
+
+
