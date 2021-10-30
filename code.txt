@@ -498,4 +498,11 @@ CREATE TABLE book (
     FOREIGN KEY (genre_id) REFERENCES genre (genre_id) ON DELETE SET NULL
 );
 
+2.1.5
+INSERT INTO book
+VALUES
+    (NULL, 'Стихотворения и поэмы', 3, 2, 650.00, 15),
+    (NULL, 'Черный человек', 3, 2, 570.20, 6),
+    (NULL, 'Лирика', 4, 2, 518.99, 2);
+
 
