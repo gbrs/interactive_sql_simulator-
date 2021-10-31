@@ -518,5 +518,13 @@ WHERE
 ORDER BY
   price DESC;
 
+2.2.2
+SELECT
+  name_genre
+FROM
+  genre
+  LEFT JOIN book ON genre.genre_id = book.genre_id
+WHERE
+  amount is NULL;
 
 
