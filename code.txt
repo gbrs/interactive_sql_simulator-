@@ -527,4 +527,17 @@ FROM
 WHERE
   amount is NULL;
 
+2.2.3
+SELECT
+    city.name_city,
+    author.name_author,
+    DATE_ADD('2020-01-01',INTERVAL FLOOR(RAND() * 365) DAY) AS Дата
+FROM
+    author,
+    city
+ORDER BY
+    city.name_city,
+    Дата DESC;
+
+
 
