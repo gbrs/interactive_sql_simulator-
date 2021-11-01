@@ -553,6 +553,22 @@ WHERE
 ORDER BY
     title;
 
+2.2.5
+SELECT
+    name_author,
+    SUM(amount) AS Количество
+FROM
+    author
+    LEFT JOIN book ON author.author_id = book.author_id
+GROUP BY
+    name_author
+HAVING
+    Количество < 10
+    OR Количество is NULL
+ORDER BY
+    Количество;
+
+
 
 
 
