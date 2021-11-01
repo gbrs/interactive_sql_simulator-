@@ -539,5 +539,21 @@ ORDER BY
     city.name_city,
     Дата DESC;
 
+2.2.4
+SELECT
+    name_genre,
+    title,
+    name_author
+FROM
+    book
+    INNER JOIN genre ON book.genre_id = genre.genre_id
+    INNER JOIN author ON book.author_id = author.author_id
+WHERE
+    name_genre = 'Роман'
+ORDER BY
+    title;
+
+
+
 
 
