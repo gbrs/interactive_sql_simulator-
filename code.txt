@@ -568,7 +568,23 @@ HAVING
 ORDER BY
     Количество;
 
-
+2.2.6
+SELECT
+    name_author
+FROM
+    (SELECT
+        author_id,
+        COUNT(DISTINCT genre_id) AS genre_number
+    FROM
+        book
+    GROUP BY
+        author_id
+    HAVING
+        genre_number = 1
+    ) AS one_love_author
+    JOIN author ON author.author_id = one_love_author.author_id
+ORDER BY
+    name_author;
 
 
 
