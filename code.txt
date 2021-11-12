@@ -639,4 +639,16 @@ WHERE
 ORDER BY
   title;
 
+2.2.8
+SELECT
+    book.title AS Название,
+    name_author AS Автор,
+    book.amount + supply.amount AS Количество
+FROM
+    book
+    INNER JOIN author ON book.author_id = author.author_id
+    INNER JOIN supply ON book.title = supply.title
+                         and author.name_author = supply.author
+                         and book.price = supply.price;
+
 
