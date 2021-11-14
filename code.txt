@@ -662,6 +662,13 @@ SET book.amount = book.amount + supply.amount,
     book.price = (book.price * book.amount + supply.price * supply.amount) / (book.amount + supply.amount)
 WHERE book.price != supply.price;
 
+2.3.2
+INSERT INTO author (author.name_author)
+SELECT supply.author
+FROM
+    author
+    RIGHT JOIN supply ON author.name_author = supply.author
+WHERE author.name_author IS Null;
 
 
 
