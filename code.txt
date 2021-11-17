@@ -742,7 +742,24 @@ USING
     INNER JOIN genre ON genre.genre_id = book.genre_id
 WHERE
     genre.name_genre = 'Поэзия';
+____________________________________________________
 
+2.4.1
+SELECT
+    buy.buy_id,
+    book.title,
+    book.price,
+    buy_book.amount
+FROM
+    buy_book
+    INNER JOIN buy USING (buy_id)
+    INNER JOIN book USING (book_id)
+    INNER JOIN client USING (client_id)
+WHERE
+    client.name_client LIKE '%Баранов%Павел%'
+ORDER BY
+    buy.buy_id,
+    book.title;
 
 
 
