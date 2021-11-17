@@ -790,6 +790,15 @@ ORDER BY
     Количество DESC,
     city.name_city;
 
-
+2.4.4
+SELECT
+    buy_step.buy_id,
+    buy_step.date_step_end
+FROM
+    step
+    INNER JOIN buy_step
+    ON step.step_id = buy_step.step_id
+    AND buy_step.date_step_end IS NOT NULL
+    AND step.name_step = 'Оплата';
 
 
