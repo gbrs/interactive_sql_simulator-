@@ -761,6 +761,22 @@ ORDER BY
     buy.buy_id,
     book.title;
 
+2.4.2
+SELECT
+    author.name_author,
+    book.title,
+    COUNT(buy_book.book_id) AS Количество
+FROM
+    book
+    LEFT JOIN buy_book USING (book_id)
+    INNER JOIN author USING (author_id)
+GROUP BY
+    book.book_id
+ORDER BY
+    author.name_author,
+    book.title;
+
+
 
 
 
