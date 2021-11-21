@@ -815,7 +815,7 @@ GROUP BY
     buy.buy_id
 ORDER BY
     buy.buy_id;
-
+//почему нет ошибки: client.name_client не участвует ни в группировкеЮ ни в агрегировании?
 
 
 
