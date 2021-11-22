@@ -817,7 +817,17 @@ ORDER BY
     buy.buy_id;
 //почему нет ошибки: client.name_client не участвует ни в группировкеЮ ни в агрегировании?
 
-
+2.4.6
+SELECT
+    buy_step.buy_id,
+    step.name_step
+FROM
+    step
+    INNER JOIN buy_step ON step.step_id = buy_step.step_id
+WHERE
+    buy_step.date_step_beg IS NOT NULL and  buy_step.date_step_end IS NULL
+ORDER BY
+    buy_step.buy_id
 
 
 
