@@ -829,5 +829,36 @@ WHERE
 ORDER BY
     buy_step.buy_id
 
+2.4.7
+SELECT
+    buy_step.buy_id,
+    DATEDIFF(buy_step.date_step_end, buy_step.date_step_beg) AS Количество_дней,
+    IF(DATEDIFF(buy_step.date_step_end, buy_step.date_step_beg) > city.days_delivery
+       , DATEDIFF(buy_step.date_step_end, buy_step.date_step_beg) - city.days_delivery
+       , 0
+    ) AS Опоздание
+FROM
+    buy_step
+    INNER JOIN step ON step.step_id = buy_step.step_id
+    INNER JOIN buy ON buy.buy_id = buy_step.buy_id
+    INNER JOIN client ON client.client_id = buy.client_id
+    INNER JOIN city ON client.city_id = city.city_id
+WHERE
+    step.name_step = "Транспортировка"
+    AND buy_step.date_step_beg IS NOT NULL
+    AND buy_step.date_step_end IS NOT NULL
+ORDER BY
+    buy_step.buy_id;
 
+2.4.8
+SELECT
+    DISTINCT client.name_client
+FROM
+    buy_book
+    INNER JOIN book USING (book_id)
+    INNER JOIN author ON author.author_id = book.author_id AND author.name_author LIKE "Достоевский%"
+    INNER JOIN buy USING (buy_id)
+    INNER JOIN client USING (client_id)
+ORDER BY
+    client.name_client;
 
