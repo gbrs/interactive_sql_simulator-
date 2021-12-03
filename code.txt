@@ -862,3 +862,31 @@ FROM
 ORDER BY
     client.name_client;
 
+2.4.9
+SELECT
+    genre.name_genre AS name_genre,
+    SUM(buy_book.amount) AS Количество
+FROM
+    buy_book
+    INNER JOIN book USING (book_id)
+    INNER JOIN genre USING (genre_id)
+GROUP BY
+    genre.genre_id
+HAVING
+    Количество
+    = (
+        SELECT
+           MAX(Количества) AS Максимальное_количество
+        FROM(
+            SELECT
+                SUM(buy_book.amount) AS Количества
+            FROM
+                buy_book
+                INNER JOIN book USING (book_id)
+                INNER JOIN genre USING (genre_id)
+            GROUP BY
+                genre.genre_id
+        ) AS Таблица_количеств
+    )
+;
+
