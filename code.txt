@@ -889,4 +889,21 @@ HAVING
         ) AS Таблица_количеств
     )
 ;
+________________________________________________
+
+2.5.1
+INSERT INTO
+    client (client.name_client, client.city_id, client.email)
+SELECT
+    'Попов Илья'
+    , city_id
+    , 'popov@test'
+FROM
+    city
+WHERE
+    city.name_city = 'Москва';
+
+
+
+
 
