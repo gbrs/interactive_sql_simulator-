@@ -903,6 +903,16 @@ FROM
 WHERE
     city.name_city = 'Москва';
 
+2.5.2
+INSERT INTO
+    buy (buy.buy_description, client_id)
+SELECT
+    "Связаться со мной по вопросу доставки"
+    , client_id
+FROM
+    client
+WHERE
+    client.name_client = "Попов Илья";
 
 
 
