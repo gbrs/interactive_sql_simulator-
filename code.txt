@@ -914,6 +914,34 @@ FROM
 WHERE
     client.name_client = "Попов Илья";
 
+2.5.3
+INSERT INTO
+    buy_book (buy_book.book_id, buy_book.buy_id, buy_book.amount)
+SELECT
+    book_id
+    , 5
+    , 2
+FROM
+    book
+    , author
+WHERE
+    author.name_author LIKE "Пастернак%"
+    AND book.title = "Лирика";
+
+INSERT INTO
+    buy_book (buy_book.book_id, buy_book.buy_id, buy_book.amount)
+SELECT
+    book_id
+    , 5
+    , 1
+FROM
+    book
+    , author
+WHERE
+    author.name_author LIKE "Булгаков%"
+    AND book.title = "Белая гвардия";
+
+
 
 
 
