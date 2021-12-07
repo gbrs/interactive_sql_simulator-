@@ -941,7 +941,15 @@ WHERE
     author.name_author LIKE "Булгаков%"
     AND book.title = "Белая гвардия";
 
-
+2.5.4
+UPDATE
+    book
+    JOIN buy_book
+    ON buy_book.book_id = book.book_id
+SET
+    book.amount = book.amount - buy_book.amount
+WHERE
+    buy_book.buy_id = 5;
 
 
 
