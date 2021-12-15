@@ -952,4 +952,21 @@ WHERE
     buy_book.buy_id = 5;
 
 
+--------------------------------------
+--------------------------------------
+
+3.1.1
+SELECT
+    st.name_student,
+    att.date_attempt,
+    att.result
+FROM
+    attempt AS att
+    JOIN student AS st USING (student_id)
+    JOIN subject AS sub USING (subject_id)
+WHERE
+    sub.name_subject = "Основы баз данных"
+ORDER BY
+    att.result DESC;
+
 
