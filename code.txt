@@ -969,4 +969,20 @@ WHERE
 ORDER BY
     att.result DESC;
 
+3.1.2
+SELECT
+    subject.name_subject,
+    COUNT(attempt.attempt_id) AS Количество,
+    ROUND(AVG(attempt.result), 2) AS Среднее
+FROM
+    attempt
+    RIGHT JOIN subject USING(subject_id)
+GROUP BY
+    subject_id
+ORDER BY
+    Среднее DESC;
+
+
+
+
 
