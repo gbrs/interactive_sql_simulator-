@@ -982,7 +982,21 @@ GROUP BY
 ORDER BY
     Среднее DESC;
 
-
+3.1.3
+SELECT
+    DISTINCT student.name_student,
+    result
+FROM
+    attempt
+    JOIN student USING(student_id)
+WHERE
+    attempt.result = (SELECT
+                          MAX(result)
+                      FROM
+                          attempt
+    )
+ORDER BY
+    student.name_student
 
 
 
