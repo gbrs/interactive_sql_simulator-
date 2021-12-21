@@ -998,5 +998,25 @@ WHERE
 ORDER BY
     student.name_student
 
+3.1.4
+SELECT
+    std.name_student,
+    sub.name_subject,
+    DATEDIFF(MAX(att.date_attempt), MIN(att.date_attempt)) AS Интервал
+FROM
+    attempt AS att
+    JOIN student AS std USING(student_id)
+    JOIN subject AS sub USING(subject_id)
+GROUP BY
+    std.name_student,
+    sub.name_subject
+HAVING
+    count(att.attempt_id) > 1
+ORDER BY
+    Интервал;
+
+
+
+
 
 
