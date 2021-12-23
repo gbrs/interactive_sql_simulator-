@@ -1015,8 +1015,15 @@ HAVING
 ORDER BY
     Интервал;
 
-
-
-
-
-
+3.1.5
+SELECT
+    sub.name_subject,
+    COUNT(DISTINCT att.student_id) AS Количество
+FROM
+    attempt AS att
+    RIGHT JOIN subject AS sub USING(subject_id)
+GROUP BY
+    sub.name_subject
+ORDER BY
+    Количество DESC,
+    sub.name_subject;
