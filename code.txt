@@ -1027,3 +1027,20 @@ GROUP BY
 ORDER BY
     Количество DESC,
     sub.name_subject;
+
+ ------------------------------------------------
+
+3.3.1
+SELECT
+    enr.name_enrollee
+FROM
+    program_enrollee AS pe
+    JOIN enrollee AS enr USING(enrollee_id)
+    JOIN program AS prg USING(program_id)
+WHERE
+    prg.name_program = "Мехатроника и робототехника"
+ORDER BY
+    enr.name_enrollee
+
+
+
