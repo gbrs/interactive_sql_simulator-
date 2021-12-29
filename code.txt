@@ -1042,5 +1042,14 @@ WHERE
 ORDER BY
     enr.name_enrollee
 
-
-
+3.3.2
+SELECT
+    prg.name_program
+FROM
+    program_subject AS prs
+    JOIN subject AS sub USING (subject_id)
+    JOIN program AS prg USING (program_id)
+WHERE
+    sub.name_subject = "Информатика"
+ORDER BY
+    prg.name_program DESC
