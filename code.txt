@@ -1053,3 +1053,21 @@ WHERE
     sub.name_subject = "Информатика"
 ORDER BY
     prg.name_program DESC
+
+3.3.3
+SELECT
+    sub.name_subject,
+    COUNT(ens.subject_id) AS Количество,
+    MAX(ens.result) AS Максимум,
+    MIN(ens.result) AS Минимум,
+    ROUND(AVG(ens.result), 1) AS Среднее
+FROM
+    enrollee_subject AS ens
+    JOIN subject AS sub USING (subject_id)
+GROUP BY
+    sub.name_subject
+ORDER BY
+    sub.name_subject
+
+
+
