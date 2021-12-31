@@ -1069,5 +1069,20 @@ GROUP BY
 ORDER BY
     sub.name_subject
 
+3.3.4
+SELECT
+    prg.name_program
+FROM
+    program_subject AS prs
+    JOIN program as prg USING (program_id)
+GROUP BY
+    prg. program_id
+HAVING
+    MIN(prs.min_result) >= 40
+ORDER BY
+    prg.name_program;
+
+
+
 
 
