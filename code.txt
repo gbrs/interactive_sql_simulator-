@@ -1028,7 +1028,17 @@ ORDER BY
     Количество DESC,
     sub.name_subject;
 
- ------------------------------------------------
+------------------------------------------------
+
+3.2.1
+INSERT INTO attempt
+JOIN student USING (student_id)
+JOIN subject USING (subject_id)
+VALUES (student.name_student = "Баранов Павел",
+       subject.name_subject = "Основы баз данных",
+       attempt.date_attempt = )
+
+-------------------------------------------------
 
 3.3.1
 SELECT
