@@ -1031,12 +1031,12 @@ ORDER BY
 ------------------------------------------------
 
 3.2.1
-INSERT INTO attempt
-JOIN student USING (student_id)
-JOIN subject USING (subject_id)
-VALUES (student.name_student = "Баранов Павел",
-       subject.name_subject = "Основы баз данных",
-       attempt.date_attempt = )
+INSERT INTO attempt (student_id, subject_id , date_attempt )
+VALUES (
+    (SELECT student_id FROM student WHERE name_student = "Баранов Павел"),
+    (SELECT subject_id FROM subject WHERE name_subject = "Основы баз данных"),
+    CURRENT_DATE()
+);
 
 -------------------------------------------------
 
