@@ -951,6 +951,22 @@ SET
 WHERE
     buy_book.buy_id = 5;
 
+2.5.5
+CREATE TABLE buy_pay AS
+SELECT
+    b.title,
+    a.name_author,
+    b.price,
+    bb.amount,
+    b.price * bb.amount AS Стоимость
+FROM
+    buy_book AS bb
+    JOIN book AS b USING (book_id)
+    JOIN author AS a USING (author_id)
+WHERE
+    bb.buy_id = 5
+ORDER BY
+    b.title;
 
 --------------------------------------
 --------------------------------------
