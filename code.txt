@@ -1108,7 +1108,18 @@ HAVING
 ORDER BY
     prg.name_program;
 
-
+3.3.5
+SELECT
+    name_program,
+    plan
+FROM
+    program
+WHERE
+    plan = (
+        SELECT
+            MAX(plan)
+        FROM
+            program);
 
 
 
