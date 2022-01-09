@@ -1121,5 +1121,21 @@ WHERE
         FROM
             program);
 
+3.3.6
+SELECT
+    name_enrollee,
+    IFNULL(SUM(bonus), 0) AS Бонус
+FROM
+    enrollee_achievement AS ea
+    JOIN achievement AS ach USING (achievement_id)
+    RIGHT JOIN enrollee AS enr USING (enrollee_id)
+GROUP BY
+    name_enrollee
+ORDER BY
+    name_enrollee;
+
+
+
+
 
 
