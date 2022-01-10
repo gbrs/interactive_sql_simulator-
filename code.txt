@@ -1134,7 +1134,21 @@ GROUP BY
 ORDER BY
     name_enrollee;
 
-
+3.3.7
+SELECT
+    dpr.name_department,
+    prg.name_program,
+    prg.plan,
+    COUNT(pe.enrollee_id) AS Количество,
+    ROUND(COUNT(pe.enrollee_id) / prg.plan, 2) AS Конкурс
+FROM
+    program_enrollee AS pe
+    JOIN program AS prg USING (program_id)
+    JOIN department AS dpr USING (department_id)
+GROUP BY
+    prg.program_id
+ORDER BY
+    Конкурс DESC;
 
 
 
