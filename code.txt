@@ -1150,6 +1150,21 @@ GROUP BY
 ORDER BY
     Конкурс DESC;
 
+3.3.8
+SELECT
+    prg.name_program
+FROM
+    program_subject AS prs
+    JOIN program AS prg USING (program_id)
+    JOIN subject AS sub USING (subject_id)
+WHERE
+    sub.name_subject in ('Информатика', 'Математика')
+GROUP BY
+    prg.name_program
+HAVING
+    COUNT(prg.name_program) = 2
+ORDER BY
+    prg.name_program;
 
 
 
