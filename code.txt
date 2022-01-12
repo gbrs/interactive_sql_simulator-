@@ -1044,6 +1044,19 @@ ORDER BY
     Количество DESC,
     sub.name_subject;
 
+3.1.6
+SELECT
+    question.question_id,
+    question.name_question
+FROM
+    question
+    JOIN subject USING (subject_id)
+WHERE
+    subject.name_subject = "Основы баз данных"
+ORDER BY RAND()
+LIMIT
+    3;
+
 ------------------------------------------------
 
 3.2.1
