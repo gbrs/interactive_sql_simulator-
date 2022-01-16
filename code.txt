@@ -1057,6 +1057,22 @@ ORDER BY RAND()
 LIMIT
     3;
 
+3.1.7
+SELECT
+    qst.name_question,
+    ans.name_answer,
+    IF (
+        ans.is_correct = 0,
+        "Неверно",
+        "Верно"
+    ) AS Результат
+FROM
+    testing AS tst
+    JOIN question AS qst USING (question_id)
+    JOIN answer AS ans USING (answer_id)
+WHERE
+    tst.attempt_id = 7;
+
 ------------------------------------------------
 
 3.2.1
