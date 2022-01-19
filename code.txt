@@ -801,6 +801,52 @@ FROM
     AND buy_step.date_step_end IS NOT NULL
     AND step.name_step = 'Оплата';
 
+Условия в JOINe или в WHERE?
+В данном случае запросы одинаковые у СУБД получились,
+даже в WHERE чуть "менее сложно" почему-то
+
+в JOINe:
+EXPLAIN ANALYZE
+SELECT DISTINCT buy_id, date_step_end
+FROM
+    buy_step
+    INNER JOIN step ON buy_step.step_id=step.step_id AND name_step='Оплата' AND date_step_end IS NOT NULL
++-----------------------------------------------------------------------------------------------------------------------------+
+| EXPLAIN                                                                                                                     |
++-----------------------------------------------------------------------------------------------------------------------------+
+| -> Table scan on <temporary>  (cost=0.20..2.65 rows=13) (actual time=0.001..0.001 rows=3 loops=1)                           |
+|     -> Temporary table with deduplication  (cost=4.00..6.45 rows=13) (actual time=0.290..0.291 rows=3 loops=1)              |
+|         -> Inner hash join (buy_step.step_id = step.step_id)  (cost=2.50 rows=13) (actual time=0.043..0.050 rows=3 loops=1) |
+|             -> Filter: (buy_step.date_step_end is not null)  (cost=1.85 rows=14) (actual time=0.009..0.014 rows=9 loops=1)  |
+|                 -> Table scan on buy_step  (cost=1.85 rows=16) (actual time=0.009..0.012 rows=16 loops=1)                   |
+|             -> Hash                                                                                                         |
+|                 -> Filter: (step.name_step = 'Оплата')  (cost=0.65 rows=1) (actual time=0.017..0.020 rows=1 loops=1)        |
+|                     -> Table scan on step  (cost=0.65 rows=4) (actual time=0.014..0.016 rows=4 loops=1)                     |
+|                                                                                                                             |
++-----------------------------------------------------------------------------------------------------------------------------+
+
+в WHERE:
+EXPLAIN ANALYZE
+SELECT DISTINCT buy_id, date_step_end
+FROM
+    buy_step
+    INNER JOIN step ON buy_step.step_id=step.step_id
+WHERE
+    name_step='Оплата' AND date_step_end IS NOT NULL
++-----------------------------------------------------------------------------------------------------------------------------+
+| EXPLAIN                                                                                                                     |
++-----------------------------------------------------------------------------------------------------------------------------+
+| -> Table scan on <temporary>  (cost=0.20..2.65 rows=13) (actual time=0.001..0.001 rows=3 loops=1)                           |
+|     -> Temporary table with deduplication  (cost=3.70..6.15 rows=13) (actual time=0.138..0.139 rows=3 loops=1)              |
+|         -> Inner hash join (buy_step.step_id = step.step_id)  (cost=2.20 rows=13) (actual time=0.038..0.044 rows=3 loops=1) |
+|             -> Filter: (buy_step.date_step_end is not null)  (cost=1.85 rows=14) (actual time=0.008..0.013 rows=9 loops=1)  |
+|                 -> Table scan on buy_step  (cost=1.85 rows=16) (actual time=0.008..0.011 rows=16 loops=1)                   |
+|             -> Hash                                                                                                         |
+|                 -> Filter: (step.name_step = 'Оплата')  (cost=0.35 rows=1) (actual time=0.013..0.018 rows=1 loops=1)        |
+|                     -> Table scan on step  (cost=0.35 rows=1) (actual time=0.010..0.014 rows=4 loops=1)                     |
+|                                                                                                                             |
++-----------------------------------------------------------------------------------------------------------------------------+
+
 2.4.5
 SELECT
     buy.buy_id,
