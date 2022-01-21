@@ -1014,6 +1014,20 @@ WHERE
 ORDER BY
     b.title;
 
+2.5.6
+CREATE TABLE buy_pay AS
+SELECT
+    bb.buy_id,
+    SUM(bb.amount) AS Количество,
+    SUM(bb.amount * book.price) AS Итого
+FROM
+    buy_book AS bb
+    JOIN book USING (book_id)
+WHERE
+    bb.buy_id = 5;
+
+SELECT * FROM buy_pay;
+
 --------------------------------------
 --------------------------------------
 
