@@ -1028,6 +1028,14 @@ WHERE
 
 SELECT * FROM buy_pay;
 
+2.5.7
+INSERT INTO buy_step (buy_id, step_id)
+SELECT
+   5,
+   step.step_id
+FROM
+    step;
+
 --------------------------------------
 --------------------------------------
 
