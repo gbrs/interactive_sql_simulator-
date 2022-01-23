@@ -1036,6 +1036,16 @@ SELECT
 FROM
     step;
 
+2.5.8
+UPDATE
+    buy_step
+    JOIN step USING (step_id)
+SET
+    buy_step.date_step_beg = '2020-04-12'
+WHERE
+    buy_step.buy_id = 5 &&
+    step.name_step = 'Оплата';
+
 --------------------------------------
 --------------------------------------
 
