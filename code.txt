@@ -935,6 +935,39 @@ HAVING
         ) AS Таблица_количеств
     )
 ;
+
+2.4.10
+SELECT
+    YEAR(ba.date_payment) Год,
+    MONTHNAME(ba.date_payment) Месяц,
+    SUM(ba.price * ba.amount) Сумма
+FROM
+    buy_archive ba
+GROUP BY
+    MONTHNAME(ba.date_payment),
+    YEAR(ba.date_payment)
+
+UNION ALL
+
+SELECT
+    YEAR(bs.date_step_end),
+    MONTHNAME(bs.date_step_end),
+    SUM(book.price * bb.amount)
+FROM
+    buy
+    JOIN buy_step bs USING (buy_id)
+    JOIN buy_book bb USING (buy_id)
+    JOIN book USING (book_id)
+WHERE
+    bs.date_step_end IS NOT NULL &&
+    bs.step_id = 1
+GROUP BY
+    MONTHNAME(bs.date_step_end),
+    YEAR(bs.date_step_end)
+
+ORDER BY
+    Месяц,
+    Год;
 ________________________________________________
 
 2.5.1
