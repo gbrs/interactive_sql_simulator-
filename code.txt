@@ -968,6 +968,50 @@ GROUP BY
 ORDER BY
     Месяц,
     Год;
+
+2.4.11
+SELECT
+    pivot_table.title,
+    SUM(Количество) Количество,
+    SUM(Сумма) Сумма
+
+FROM
+    (SELECT
+        ba.book_id,
+        book.title title,
+        ba.amount Количество,
+        ba.price * ba.amount Сумма
+    FROM
+        buy_archive ba
+        JOIN book USING (book_id)
+    WHERE
+        ba.date_payment IS NOT NULL
+
+    UNION ALL
+
+    SELECT
+        bb.book_id,
+        book.title title,
+        bb.amount,
+        book.price * bb.amount
+    FROM
+        buy_book bb
+        JOIN book USING (book_id)
+        JOIN buy USING (buy_id)
+        JOIN buy_step bs USING (buy_id)
+        JOIN step USING (step_id)
+    WHERE
+        step.name_step = "Оплата" AND
+        bs.date_step_end IS NOT NULL
+    ) AS pivot_table
+
+GROUP BY
+    pivot_table.book_id,
+    pivot_table.title
+
+ORDER BY
+    Сумма DESC;
+
 ________________________________________________
 
 2.5.1
