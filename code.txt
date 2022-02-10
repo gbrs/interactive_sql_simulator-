@@ -1247,6 +1247,32 @@ FROM
 WHERE
     tst.attempt_id = 7;
 
+3.1.8
+SELECT
+    stu.name_student,
+    sub.name_subject,
+    att.date_attempt,
+    ROUND(SUM(ans.is_correct) / 3 * 100, 2) Результат
+FROM
+    attempt att
+    JOIN testing tst USING (attempt_id)
+    JOIN student stu USING (student_id)
+    JOIN subject sub USING (subject_id)
+    JOIN answer ans USING (answer_id)
+GROUP BY
+    stu.name_student,
+    sub.name_subject,
+    att.date_attempt
+ORDER BY
+    stu.name_student,
+    att.date_attempt DESC;
+/*
+а можно и:
+GROUP BY
+    tst.attempt_id
+так надо ли все неаггрегируемые поля указывать в GROUP BY?
+*/
+
 ------------------------------------------------
 
 3.2.1
