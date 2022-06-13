@@ -1270,8 +1270,27 @@ ORDER BY
 а можно и:
 GROUP BY
     tst.attempt_id
-так надо ли все неаггрегируемые поля указывать в GROUP BY?
+так надо ли все неагрегируемые поля указывать в GROUP BY?
 */
+
+3.1.9
+SELECT
+    sub.name_subject,
+    CONCAT(SUBSTR(qst.name_question, 1, 30), '...') AS Вопрос,
+    COUNT(ans.answer_id) AS Всего_ответов,
+    ROUND(100 * SUM(ans.is_correct) / COUNT(ans.answer_id), 2) AS Успешность
+FROM
+    subject sub
+    INNER JOIN question qst USING (subject_id)
+    INNER JOIN answer ans USING (question_id)
+    INNER JOIN testing tst USING (answer_id)
+GROUP BY
+    sub.name_subject,
+    qst.name_question
+ORDER BY
+    sub.name_subject,
+    Успешность DESC,
+    Вопрос
 
 ------------------------------------------------
 
