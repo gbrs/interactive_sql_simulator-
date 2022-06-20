@@ -1414,5 +1414,24 @@ HAVING
 ORDER BY
     prg.name_program;
 
-
+3.3.9
+SELECT
+    prg.name_program,
+    enr.name_enrollee,
+    SUM(es.result) itog
+FROM
+    enrollee enr
+    INNER JOIN program_enrollee pe USING (enrollee_id)
+    INNER JOIN program prg USING (program_id)
+    INNER JOIN program_subject ps USING (program_id)
+    -- важное место, не совсем мною понятое
+    INNER JOIN enrollee_subject es
+        ON ps.subject_id = es.subject_id
+            AND es.enrollee_id = enr.enrollee_id
+GROUP BY
+    prg.name_program,
+    enr.name_enrollee
+ORDER BY
+    prg.name_program,
+    itog DESC
 
