@@ -1424,7 +1424,8 @@ FROM
     INNER JOIN program_enrollee pe USING (enrollee_id)
     INNER JOIN program prg USING (program_id)
     INNER JOIN program_subject ps USING (program_id)
-    -- важное место, не совсем мною понятое
+    /* важное место, не совсем мною понятое
+    соединение по 2 ключам */
     INNER JOIN enrollee_subject es
         ON ps.subject_id = es.subject_id
             AND es.enrollee_id = enr.enrollee_id
@@ -1434,4 +1435,23 @@ GROUP BY
 ORDER BY
     prg.name_program,
     itog DESC
+
+3.3.10
+SELECT
+  prg.name_program,
+  enr.name_enrollee
+FROM
+  enrollee enr
+  INNER JOIN program_enrollee pre ON pre.enrollee_id = enr.enrollee_id
+  INNER JOIN program prg ON pre.program_id = prg.program_id
+  INNER JOIN program_subject prs ON prs.program_id = prg.program_id
+  /* важное место, не совсем мною понятое
+    соединение по 2 ключам */
+  INNER JOIN enrollee_subject ens
+    ON enr.enrollee_id = ens.enrollee_id AND ens.subject_id = prs.subject_id
+WHERE
+  ens.result < prs.min_result
+ORDER BY
+  prg.name_program,
+  enr.name_enrollee
 
