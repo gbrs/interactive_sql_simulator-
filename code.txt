@@ -1302,6 +1302,21 @@ VALUES (
     CURRENT_DATE()
 );
 
+3.2.2
+INSERT INTO
+    testing (attempt_id, question_id)
+SELECT
+    att.attempt_id,
+    qst.question_id
+FROM
+    question qst
+    JOIN attempt att USING (subject_id)
+WHERE
+    att.attempt_id = (SELECT MAX(attempt_id) FROM attempt)
+ORDER BY RAND()
+LIMIT
+    3;
+
 -------------------------------------------------
 
 3.3.1
