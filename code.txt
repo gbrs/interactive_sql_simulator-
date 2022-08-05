@@ -1317,6 +1317,15 @@ ORDER BY RAND()
 LIMIT
     3;
 
+3.2.3
+
+
+3.2.4
+DELETE FROM
+    attempt
+WHERE
+    date_attempt < '2020-05-01'
+
 -------------------------------------------------
 
 3.3.1
