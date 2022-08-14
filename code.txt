@@ -1514,3 +1514,19 @@ ORDER BY
     itog DESC;
 
 SELECT * FROM applicant
+
+3.4.2
+DELETE FROM applicant app
+WHERE (app.program_id, app.enrollee_id) IN (
+        SELECT
+          pre.program_id,
+          pre.enrollee_id
+        FROM
+          program_enrollee pre
+          INNER JOIN program_subject prs ON prs.program_id = pre.program_id
+          INNER JOIN enrollee_subject ens
+            ON pre.enrollee_id = ens.enrollee_id AND ens.subject_id = prs.subject_id
+        WHERE
+          ens.result < prs.min_result);
+
+SELECT * FROM applicant
