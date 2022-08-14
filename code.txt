@@ -1491,3 +1491,26 @@ ORDER BY
   prg.name_program,
   enr.name_enrollee
 
+-------------------------------------------------
+
+3.4.1
+CREATE TABLE
+    applicant AS
+SELECT
+    pe.program_id,
+    pe.enrollee_id,
+    SUM(es.result) itog
+FROM
+    program_enrollee pe
+    INNER JOIN program_subject ps USING (program_id)
+    INNER JOIN enrollee_subject es
+        ON ps.subject_id = es.subject_id
+            AND es.enrollee_id = pe.enrollee_id
+GROUP BY
+    pe.program_id,
+    pe.enrollee_id
+ORDER BY
+    pe.program_id,
+    itog DESC;
+
+SELECT * FROM applicant
