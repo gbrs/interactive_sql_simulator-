@@ -1530,3 +1530,21 @@ WHERE (app.program_id, app.enrollee_id) IN (
           ens.result < prs.min_result);
 
 SELECT * FROM applicant
+
+3.4.3
+WITH bonus AS(
+        SELECT
+            enrollee_id,
+            IFNULL(SUM(bonus), 0) Бонус
+        FROM
+            enrollee_achievement AS ea
+            JOIN achievement AS ach USING (achievement_id)
+        GROUP BY
+            enrollee_id
+        )
+
+UPDATE applicant app
+INNER JOIN bonus USING(enrollee_id)
+SET itog = itog + Бонус;
+
+SELECT * FROM applicant;
