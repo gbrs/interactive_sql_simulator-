@@ -1548,3 +1548,25 @@ INNER JOIN bonus USING(enrollee_id)
 SET itog = itog + Бонус;
 
 SELECT * FROM applicant;
+
+3.4.4
+CREATE TABLE applicant_order AS
+SELECT * FROM applicant ORDER BY program_id, itog DESC;
+-- SELECT * FROM applicant_order;
+DROP TABLE applicant
+
+3.4.5
+ALTER TABLE applicant_order ADD str_id INT FIRST
+
+3.4.6
+SET @num_pr := 1;
+SET @row_num := 0;
+
+UPDATE applicant_order
+SET str_id = if(program_id = @num_pr, @row_num := @row_num + 1, @row_num := 1 AND @num_pr := @num_pr + 1);
+-- вообще-то @row_num := 1 AND @num_pr := num_pr + 1 - это хак.
+-- Результатом AND будет как раз True = единица, которая запишется, где надо.
+-- А потом уже работаем с @row_num.
+-- Красивый хак: @row_num := 1 +(@num_pr := program_id)*0
+
+-- SELECT * FROM applicant_order
