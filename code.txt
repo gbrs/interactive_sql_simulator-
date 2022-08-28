@@ -1567,6 +1567,24 @@ SET str_id = if(program_id = @num_pr, @row_num := @row_num + 1, @row_num := 1 AN
 -- вообще-то @row_num := 1 AND @num_pr := num_pr + 1 - это хак.
 -- Результатом AND будет как раз True = единица, которая запишется, где надо.
 -- А потом уже работаем с @row_num.
--- Красивый хак: @row_num := 1 +(@num_pr := program_id)*0
+-- Красивый хак: @row_num := 1 + (@num_pr := program_id)*0
 
 -- SELECT * FROM applicant_order
+
+3.4.7
+CREATE TABLE student AS
+SELECT
+    prg.name_program,
+    enr.name_enrollee,
+    apo.itog
+FROM
+    applicant_order apo
+    INNER JOIN enrollee enr USING (enrollee_id)
+    INNER JOIN program prg USING (program_id)
+WHERE
+    apo.str_id <= prg.plan
+ORDER BY
+    prg.name_program,
+    apo.itog DESC;
+
+SELECT * FROM student
