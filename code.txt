@@ -1588,3 +1588,23 @@ ORDER BY
     apo.itog DESC;
 
 SELECT * FROM student
+
+-------------------------------------------------
+
+3.5.1
+SELECT
+    CONCAT(LEFT(CONCAT(m.module_id, ' ', m.module_name), 16), '...') Модуль,
+    CONCAT(LEFT(CONCAT(m.module_id, '.', l.lesson_position, ' ', l.lesson_name), 16), '...') Урок,
+    -- надо было IF, конечно, на случай если строка <= 16 + 3 знаков, но я поленилсся
+    CONCAT(m.module_id, '.', l.lesson_position, '.', s.step_position, ' ', s.step_name) Шаг
+FROM step s
+    JOIN lesson l USING (lesson_id)
+    JOIN module m USING (module_id)
+WHERE
+    s.step_name LIKE '%влож%'
+ORDER BY
+    m.module_id,
+    l.lesson_position,
+    s.step_position
+
+
