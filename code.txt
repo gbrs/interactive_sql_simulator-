@@ -1607,4 +1607,14 @@ ORDER BY
     l.lesson_position,
     s.step_position
 
-
+3.5.2
+INSERT INTO
+    step_keyword
+SELECT
+    s.step_id,
+    k.keyword_id
+FROM
+    step s,
+    keyword k
+WHERE
+    s.step_name REGEXP CONCAT('\\b', k.keyword_name, '\\b');
