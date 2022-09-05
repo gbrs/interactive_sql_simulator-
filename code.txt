@@ -1618,3 +1618,34 @@ FROM
     keyword k
 WHERE
     s.step_name REGEXP CONCAT('\\b', k.keyword_name, '\\b');
+
+3.5.3
+SELECT
+    DISTINCT CONCAT(
+                m.module_id, '.',
+                l.lesson_position, '.',
+                IF(s.step_position >= 10, s.step_position, CONCAT('0', s.step_position)), ' ',
+                s.step_name) Шаг
+FROM step s
+    JOIN lesson l USING (lesson_id)
+    JOIN module m USING (module_id)
+    JOIN step_keyword sk USING (step_id)
+    JOIN keyword k ON k.keyword_id = sk.keyword_id
+WHERE
+    k.keyword_name = 'MAX'
+    AND CONCAT(m.module_id, '.', l.lesson_position, '.', s.step_position)
+    IN (SELECT
+            CONCAT(m.module_id, '.', l.lesson_position, '.', s.step_position)
+        FROM step s
+            JOIN lesson l USING (lesson_id)
+            JOIN module m USING (module_id)
+            JOIN step_keyword sk USING (step_id)
+            JOIN keyword k ON k.keyword_id = sk.keyword_id
+        WHERE
+            k.keyword_name = 'AVG'
+        )
+
+ORDER BY
+    Шаг
+
+
