@@ -1648,4 +1648,37 @@ WHERE
 ORDER BY
     Шаг
 
+3.5.4
+SELECT Группа, Интервал, COUNT(*) Количество
+FROM (SELECT student_name, rate,
+            CASE
+                WHEN rate <= 10 THEN "I"
+                WHEN rate <= 15 THEN "II"
+                WHEN rate <= 27 THEN "III"
+                ELSE "IV"
+            END AS Группа,
+            CASE
+                WHEN rate <= 10 THEN "от 0 до 10"
+                WHEN rate <= 15 THEN "от 11 до 15"
+                WHEN rate <= 27 THEN "от 16 до 27"
+                ELSE "больше 27"
+            END AS Интервал
+        FROM
+            (
+             SELECT student_name, count(*) as rate
+             FROM
+                 (
+                  SELECT student_name, step_id
+                  FROM
+                      student
+                      INNER JOIN step_student USING(student_id)
+                  WHERE result = "correct"
+                  GROUP BY student_name, step_id
+                 ) query_in
+             GROUP BY student_name
+            ) query_in_1
+     ) query_in_2
+GROUP BY Группа, Интервал
+ORDER BY Группа
+
 
