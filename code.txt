@@ -1717,3 +1717,34 @@ FROM
     RIGHT JOIN get_count_wrong ON st_n_c = st_n_w
 ORDER BY 2, 1;
 
+3.5.6
+SET @total = (SELECT COUNT(DISTINCT step_id) FROM step_student);
+
+WITH temp AS (
+SELECT
+    DISTINCT student_id,
+    step_id,
+    IF(result = 'correct', 1, 0) result_bool
+FROM
+    step_student
+)
+
+SELECT
+    student_name Студент,
+    ROUND(100 * SUM(result_bool) / @total) Прогресс,
+    IF(ROUND(100 * SUM(result_bool) / @total) = 100,
+       'Сертификат с отличием',
+       IF(ROUND(100 * SUM(result_bool) / @total) >= 80,
+          'Сертификат', ''
+         )
+      ) Результат
+FROM
+    temp
+    JOIN student USING (student_id)
+GROUP BY
+    student_id
+ORDER BY
+    Прогресс DESC,
+    Студент
+
+
