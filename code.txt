@@ -1825,3 +1825,22 @@ ORDER BY
     Модуль,
     Относительный_рейтинг DESC,
     Студент
+
+3.5.10
+# только начал решать задачу
+SELECT
+    student_name Студент,
+    CONCAT(lesson_id, '.', step_position) Урок,
+    FROM_UNIXTIME(submission_time) Макс_время_отправки,
+    submission_time Интервал,
+    result
+FROM
+    step_student
+    JOIN student USING (student_id)
+    JOIN step USING (step_id)
+    JOIN lesson USING (lesson_id)
+WHERE
+    result = 'correct'
+ORDER BY
+    student_name,
+    Макс_время_отправки
